@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+
+{% block title %}个人中心 - 租房网{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ url_for('index') }}">首页</a></li>
+            <li class="breadcrumb-item active">个人中心</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <!-- 用户信息 -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5><i class="fas fa-user"></i> 个人信息</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <table class="table table-borderless">
+                                <tr>
+                                    <td><strong>用户名:</strong></td>
+                                    <td>{{ user.username }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>邮箱:</strong></td>
+                                    <td>{{ user.email }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>注册时间:</strong></td>
+                                    <td>{{ user.created_at.strftime('%Y-%m-%d %H:%M') if user.created_at else '未知' }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 使用统计 -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5><i class="fas fa-chart-bar"></i> 使用统计</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-md-4">
+                            <div class="stat-item">
+                                <i class="fas fa-heart text-danger fa-2x mb-2"></i>
+                                <h4>{{ favorite_count }}</h4>
+                                <p class="text-muted">收藏房源</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="stat-item">
+                                <i class="fas fa-eye text-info fa-2x mb-2"></i>
+                                <h4>{{ browse_count }}</h4>
+                                <p class="text-muted">浏览记录</p>
+                                <small class="text-info">最近30天: {{ recent_browse_count }}</small>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="stat-item">
+                                <i class="fas fa-search text-success fa-2x mb-2"></i>
+                                <h4>--</h4>
+                                <p class="text-muted">搜索次数</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <!-- 快捷操作 -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5><i class="fas fa-tools"></i> 快捷操作</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <a href="{{ url_for('favorites_page') }}" class="btn btn-outline-danger">
+                            <i class="fas fa-heart"></i> 我的收藏
+                        </a>
+                        <a href="{{ url_for('browse_history_page') }}" class="btn btn-outline-info">
+                            <i class="fas fa-history"></i> 浏览记录
+                        </a>
+                        <a href="{{ url_for('index') }}" class="btn btn-outline-primary">
+                            <i class="fas fa-search"></i> 搜索房源
+                        </a>
+                        <hr>
+                        <a href="{{ url_for('logout') }}" class="btn btn-outline-secondary"
+                           onclick="return confirm('确定要退出登录吗？')">
+                            <i class="fas fa-sign-out-alt"></i> 退出登录
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 账户安全 -->
+            <div class="card">
+                <div class="card-header">
+                    <h5><i class="fas fa-shield-alt"></i> 账户安全</h5>
+                </div>
+                <div class="card-body">
+                    <div class="security-item mb-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>登录密码</strong>
+                                <br>
+                                <small class="text-muted">定期更换密码保护账户安全</small>
+                            </div>
+                            <button class="btn btn-outline-primary btn-sm" disabled>
+                                修改密码
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="security-item">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>邮箱验证</strong>
+                                <br>
+                                <small class="text-success">
+                                    <i class="fas fa-check-circle"></i> 已验证
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.stat-item {
+    padding: 20px;
+    border: 1px solid #dee2e6;
+    border-radius: 0.375rem;
+    margin-bottom: 20px;
+}
+
+.security-item {
+    padding: 15px 0;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.security-item:last-child {
+    border-bottom: none;
+}
+</style>
+{% endblock %}

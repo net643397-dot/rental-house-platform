@@ -1,0 +1,829 @@
+{% extends "base.html" %}
+
+{% block extra_css %}
+<style>
+/* 首页现代化样式 - 超紧凑版本 v2.0 */
+.hero-section-enhanced {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    position: relative;
+    overflow: hidden;
+    padding: 5rem 0;
+    color: white;
+}
+
+.hero-section-enhanced::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.05)"/><circle cx="50" cy="10" r="0.8" fill="rgba(255,255,255,0.08)"/><circle cx="20" cy="80" r="0.6" fill="rgba(255,255,255,0.06)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    opacity: 0.4;
+}
+
+.hero-content-enhanced {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-icon-enhanced {
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 2rem;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.hero-icon-enhanced i {
+    font-size: 2rem;
+    color: white;
+}
+
+.hero-title-enhanced {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-subtitle-enhanced {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+    font-weight: 300;
+}
+
+.search-card-enhanced {
+    background: rgba(30, 30, 30, 0.95);
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(68, 68, 68, 0.3);
+}
+
+.search-card-enhanced .card-body {
+    padding: 1.25rem;
+}
+
+.search-form-row {
+    margin-bottom: 0.5rem;
+}
+
+.search-form-row .row {
+    margin-bottom: 0;
+}
+
+/* 自定义flex布局 - 超紧凑间距 */
+.custom-flex-row {
+    display: flex;
+    align-items: end;
+    gap: 0.25rem; /* 超小间距 */
+    width: 100%;
+}
+
+.custom-flex-item {
+    display: flex;
+    flex-direction: column;
+    min-width: 0; /* 允许缩小 */
+}
+
+.flex-2 { flex: 2; }
+.flex-3 { flex: 3; }
+.flex-5 { flex: 5; }
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .custom-flex-row {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .custom-flex-item {
+        flex: 1 1 48%; /* 两列布局 */
+        min-width: 48%;
+    }
+
+    .flex-5 {
+        flex: 1 1 100%; /* 提示信息占满行 */
+        min-width: 100%;
+    }
+}
+
+.form-label-enhanced {
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 0.35rem;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    min-height: 1.1rem;
+    display: block;
+}
+
+.price-range-hint-enhanced {
+    display: flex;
+    align-items: end;
+    height: 100%;
+    padding-top: 1.4rem;
+}
+
+.price-range-hint-enhanced small {
+    background: rgba(52, 58, 64, 0.3);
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    border: 1px solid rgba(68, 68, 68, 0.5);
+    color: #b3b3b3;
+    font-size: 0.8rem;
+}
+
+.form-control-enhanced, .form-select-enhanced {
+    border: 2px solid #444;
+    border-radius: 12px;
+    padding: 0.65rem 0.9rem;
+    transition: all 0.3s ease;
+    background: rgba(44, 44, 44, 0.9);
+    color: #ffffff;
+}
+
+.form-control-enhanced:focus, .form-select-enhanced:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+    transform: translateY(-1px);
+    background: rgba(60, 60, 60, 0.9);
+}
+
+.form-control-enhanced::placeholder {
+    color: #999;
+}
+
+.form-select-enhanced option {
+    background: #2c2c2c;
+    color: #ffffff;
+}
+
+.btn-search-enhanced {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+    border: none;
+    border-radius: 12px;
+    padding: 0.65rem 1.5rem;
+    font-weight: 600;
+    color: white;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+}
+
+.btn-search-enhanced:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+    color: white;
+}
+
+.btn-reset-enhanced {
+    background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+    border: none;
+    border-radius: 12px;
+    padding: 0.65rem 1.5rem;
+    font-weight: 600;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.btn-reset-enhanced:hover {
+    transform: translateY(-2px);
+    color: white;
+}
+
+.house-card-enhanced {
+    border: 1px solid #444;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    background: #1e1e1e;
+}
+
+.house-card-enhanced:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    border-color: #667eea;
+}
+
+.house-card-enhanced .card-body {
+    padding: 1.5rem;
+}
+
+.house-card-enhanced .card-title {
+    color: #ffffff;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.price-badge-enhanced {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    display: inline-block;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+}
+
+.info-tag-enhanced {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin: 0.25rem 0.25rem 0.25rem 0;
+    display: inline-block;
+}
+
+.btn-detail-enhanced {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    border: none;
+    border-radius: 25px;
+    padding: 0.5rem 1.5rem;
+    color: white;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+}
+
+.btn-detail-enhanced:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(40, 167, 69, 0.4);
+    color: white;
+}
+
+.no-results-enhanced {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, #2c2c2c 0%, #1e1e1e 100%);
+    border-radius: 20px;
+    margin: 2rem 0;
+    border: 1px solid #444;
+}
+
+.no-results-icon {
+    font-size: 4rem;
+    color: #667eea;
+    margin-bottom: 1.5rem;
+    opacity: 0.8;
+    display: block;
+    width: 100%;
+    text-align: center;
+    min-height: 4rem;
+    position: relative;
+}
+
+.no-results-icon i {
+    display: inline-block;
+}
+
+.no-results-icon i::before {
+    display: inline-block;
+}
+
+/* 图标加载失败时的备用方案 - 使用伪元素 */
+.no-results-icon::after {
+    content: '🔍';
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+    font-style: normal;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+
+/* 当Font Awesome未加载时显示备用图标 */
+.icon-fallback .no-results-icon i {
+    display: none;
+}
+
+.icon-fallback .no-results-icon::after {
+    opacity: 1;
+}
+
+.no-results-enhanced h4 {
+    color: #ffffff;
+}
+
+.no-results-enhanced p {
+    color: #b3b3b3;
+}
+
+.section-title-enhanced {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 2rem;
+    position: relative;
+    display: inline-block;
+}
+
+.section-title-enhanced::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+    border-radius: 2px;
+}
+
+.pagination-enhanced .page-link {
+    border: none;
+    margin: 0 0.25rem;
+    border-radius: 12px;
+    color: #667eea;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.pagination-enhanced .page-item.active .page-link {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.pagination-enhanced .page-link:hover {
+    background: rgba(102, 126, 234, 0.1);
+    transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+    .hero-title-enhanced {
+        font-size: 2.5rem;
+    }
+
+    .search-card-enhanced .card-body {
+        padding: 1.5rem;
+    }
+
+    .search-form-row .col-lg-4,
+    .search-form-row .col-lg-3,
+    .search-form-row .col-lg-2 {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-label-enhanced {
+        font-size: 0.85rem;
+        margin-bottom: 0.4rem;
+    }
+
+    .btn-search-enhanced,
+    .btn-reset-enhanced {
+        padding: 0.8rem 1.5rem;
+        font-size: 0.9rem;
+    }
+
+    .price-range-hint-enhanced {
+        padding-top: 1rem;
+        text-align: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .search-card-enhanced .card-body {
+        padding: 1rem;
+    }
+
+    .hero-title-enhanced {
+        font-size: 2rem;
+    }
+
+    .hero-subtitle-enhanced {
+        font-size: 1rem;
+    }
+
+    .search-form-row .row {
+        margin-bottom: 1rem;
+    }
+
+    .search-form-row .col-lg-4,
+    .search-form-row .col-lg-3,
+    .search-form-row .col-lg-2 {
+        margin-bottom: 1rem;
+    }
+
+    .btn-search-enhanced,
+    .btn-reset-enhanced {
+        padding: 0.7rem 1rem;
+        font-size: 0.85rem;
+    }
+
+    .form-control-enhanced,
+    .form-select-enhanced {
+        padding: 0.6rem 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    .price-range-hint-enhanced small {
+        font-size: 0.75rem;
+        padding: 0.4rem 0.6rem;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div style="background: #121212; min-height: 100vh; color: #ffffff;">
+<div class="hero-section-enhanced">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <div class="hero-content-enhanced">
+                    <div class="hero-icon-enhanced">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h1 class="hero-title-enhanced">找到您理想的租房</h1>
+                    <p class="hero-subtitle-enhanced">搜索数千套优质房源信息，让您的租房之旅更加轻松愉快</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container my-5">
+    <!-- 搜索筛选表单 -->
+    <div class="search-card-enhanced mb-4">
+        <div class="card-body">
+            <form method="GET" action="{{ url_for('index') }}">
+                <!-- 第一行：主要筛选项 -->
+                <div class="search-form-row">
+                    <div class="custom-flex-row">
+                        <div class="custom-flex-item flex-3">
+                            <label for="search" class="form-label-enhanced">🔍 关键词搜索</label>
+                            <input type="text" class="form-control-enhanced" id="search" name="search"
+                                   placeholder="输入小区、地址或关键词" value="{{ search }}">
+                        </div>
+                        <div class="custom-flex-item flex-2">
+                            <label for="region" class="form-label-enhanced">📍 区域</label>
+                            <select class="form-select-enhanced" id="region" name="region">
+                                <option value="">全部区域</option>
+                                {% for r in regions %}
+                                <option value="{{ r }}" {% if region == r %}selected{% endif %}>{{ r }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="custom-flex-item flex-2">
+                            <label for="rent_type" class="form-label-enhanced">🏠 租赁类型</label>
+                            <select class="form-select-enhanced" id="rent_type" name="rent_type">
+                                <option value="">不限</option>
+                                <option value="整租" {% if rent_type == '整租' %}selected{% endif %}>整租</option>
+                                <option value="合租主卧" {% if rent_type == '合租主卧' %}selected{% endif %}>合租主卧</option>
+                                <option value="合租次卧" {% if rent_type == '合租次卧' %}selected{% endif %}>合租次卧</option>
+                            </select>
+                        </div>
+                        <div class="custom-flex-item flex-2">
+                            <label for="rooms" class="form-label-enhanced">🛏️ 房间类型</label>
+                            <select class="form-select-enhanced" id="rooms" name="rooms">
+                                <option value="">不限</option>
+                                <option value="1室" {% if rooms == '1室' %}selected{% endif %}>1室</option>
+                                <option value="2室" {% if rooms == '2室' %}selected{% endif %}>2室</option>
+                                <option value="3室" {% if rooms == '3室' %}selected{% endif %}>3室</option>
+                                <option value="4室" {% if rooms == '4室' %}selected{% endif %}>4室</option>
+                                <option value="5室" {% if rooms == '5室' %}selected{% endif %}>5室</option>
+                            </select>
+                        </div>
+                        <div class="custom-flex-item flex-3">
+                            <button type="submit" class="btn-search-enhanced w-100">
+                                <i class="fas fa-search"></i> 搜索房源
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 第二行：价格范围和重置按钮 -->
+                <div class="search-form-row" style="margin-top: 0.5rem;">
+                    <div class="custom-flex-row">
+                        <div class="custom-flex-item flex-2">
+                            <label class="form-label-enhanced">💰 最低价格(元/月)</label>
+                            <input type="number" class="form-control-enhanced" id="min_price" name="min_price"
+                                   placeholder="最低价格" value="{{ request.args.get('min_price', '') }}">
+                        </div>
+                        <div class="custom-flex-item flex-2">
+                            <label class="form-label-enhanced">💰 最高价格(元/月)</label>
+                            <input type="number" class="form-control-enhanced" id="max_price" name="max_price"
+                                   placeholder="最高价格" value="{{ request.args.get('max_price', '') }}">
+                        </div>
+                        <div class="custom-flex-item flex-5">
+                            <div class="price-range-hint-enhanced">
+                                <small class="text-muted" id="price-range-hint">
+                                    <i class="fas fa-info-circle"></i> 正在加载价格范围...
+                                </small>
+                            </div>
+                        </div>
+                        <div class="custom-flex-item flex-3">
+                            <a href="{{ url_for('index') }}" class="btn-reset-enhanced w-100">
+                                <i class="fas fa-refresh"></i> 重置筛选
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 房源列表 -->
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="section-title-enhanced">🏠 房源列表 (共 {{ houses.total }} 套)</h3>
+                <div class="pagination-info px-3 py-2 rounded-pill" style="background: #2c2c2c; border: 1px solid #444; color: #b3b3b3;">
+                    <i class="fas fa-list-ol"></i> 第 {{ houses.page }} 页 / 共 {{ houses.pages }} 页
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        {% for house in houses.items %}
+        <div class="col-lg-6 mb-4">
+            <div class="house-card-enhanced h-100">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="{{ url_for('static', filename='images/default-house.jpg') }}"
+                             class="img-fluid rounded-start" alt="{{ house.title }}"
+                             style="height: 200px; object-fit: cover;"
+                             onerror="this.src='https://via.placeholder.com/300x200?text=房源图片'">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ house.title }}</h5>
+                            <p class="card-text">
+                                <small class="text-muted">
+                                    <i class="fas fa-location-dot"></i> {{ house.address }}
+                                </small>
+                            </p>
+
+                            <!-- 价格徽章 -->
+                            <div class="price-badge-enhanced">
+                                ¥{{ house.price }}/月
+                            </div>
+
+                            <!-- 房源信息标签 -->
+                            <div class="house-info mb-3">
+                                <span class="info-tag-enhanced">🛏️ {{ house.rooms }}</span>
+                                <span class="info-tag-enhanced">📐 {{ house.area }}㎡</span>
+                                <span class="info-tag-enhanced">🧭 {{ house.direction or '未知' }}</span>
+                                <span class="info-tag-enhanced">🏠 {{ house.rent_type }}</span>
+                            </div>
+
+                            <!-- 浏览量和区域 -->
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <div>
+                                    {% if house.page_views %}
+                                    <small class="text-muted">
+                                        <i class="fas fa-eye"></i> {{ house.page_views }} 次浏览
+                                    </small>
+                                    {% endif %}
+                                </div>
+                                <span class="badge" style="background: #667eea; color: white;">📍 {{ house.region }}</span>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a href="{{ url_for('house_detail', house_id=house.id) }}"
+                                   class="btn-detail-enhanced">
+                                   <i class="fas fa-info-circle"></i> 查看详情
+                                </a>
+                                <small class="text-success">
+                                    <i class="fas fa-check-circle"></i> 房源可用
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- 分页导航 -->
+    {% if houses.pages > 1 %}
+    <nav aria-label="Page navigation">
+        <ul class="pagination pagination-enhanced justify-content-center">
+            {% if houses.has_prev %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ houses.prev_num }}{% for key, value in request.args.items() %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+                        <i class="fas fa-chevron-left"></i> 上一页
+                    </a>
+                </li>
+            {% endif %}
+
+            {% for page_num in houses.iter_pages() %}
+                {% if page_num %}
+                    {% if page_num != houses.page %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_num }}{% for key, value in request.args.items() %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+                                {{ page_num }}
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="page-item active">
+                            <span class="page-link">{{ page_num }}</span>
+                        </li>
+                    {% endif %}
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">…</span>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            {% if houses.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ houses.next_num }}{% for key, value in request.args.items() %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+                        下一页 <i class="fas fa-chevron-right"></i>
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+
+    {% if not houses.items %}
+    <div class="no-results-enhanced">
+        <div class="no-results-icon">
+            <i class="fas fa-search-location" aria-hidden="true" role="img" aria-label="搜索图标"></i>
+        </div>
+        <h4>暂无符合条件的房源</h4>
+        <p>尝试调整搜索条件，或许能找到更多选择</p>
+        <div class="mt-3">
+            <a href="{{ url_for('index') }}" class="btn-search-enhanced">
+                <i class="fas fa-refresh" aria-hidden="true"></i> 重新搜索
+            </a>
+            <a href="{{ url_for('nearby_page') }}" class="btn-detail-enhanced ms-2">
+                <i class="fas fa-location-dot" aria-hidden="true"></i> 附近找房
+            </a>
+        </div>
+    </div>
+    {% endif %}
+</div>
+</div>
+
+<script>
+// 动态价格范围功能
+let currentPriceRange = {
+    min: 0,
+    max: 10000,
+    count: 0
+};
+
+// 页面加载时初始化价格范围
+document.addEventListener('DOMContentLoaded', function() {
+    updatePriceRange();
+
+    // 为所有筛选条件添加事件监听器
+    const filterInputs = [
+        document.getElementById('search'),
+        document.getElementById('region'),
+        document.getElementById('rent_type'),
+        document.getElementById('rooms')
+    ];
+
+    filterInputs.forEach(input => {
+        if (input) {
+            input.addEventListener('change', updatePriceRange);
+            input.addEventListener('input', debounce(updatePriceRange, 500)); // 搜索框防抖
+        }
+    });
+});
+
+// 防抖函数
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// 更新价格范围
+function updatePriceRange() {
+    const search = document.getElementById('search').value;
+    const region = document.getElementById('region').value;
+    const rentType = document.getElementById('rent_type').value;
+    const rooms = document.getElementById('rooms').value;
+
+    // 构建查询参数
+    const params = new URLSearchParams();
+    if (search) params.append('search', search);
+    if (region) params.append('region', region);
+    if (rentType) params.append('rent_type', rentType);
+    if (rooms) params.append('rooms', rooms);
+
+    // 显示加载状态
+    const hintElement = document.getElementById('price-range-hint');
+    hintElement.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 正在更新价格范围...';
+    hintElement.className = 'text-muted mt-1';
+
+    // 请求价格范围
+    fetch(`/api/price-range?${params.toString()}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                currentPriceRange = {
+                    min: data.min_price,
+                    max: data.max_price,
+                    count: data.count
+                };
+
+                // 更新输入框属性
+                const minPriceInput = document.getElementById('min_price');
+                const maxPriceInput = document.getElementById('max_price');
+
+                minPriceInput.setAttribute('min', data.min_price);
+                minPriceInput.setAttribute('max', data.max_price);
+                minPriceInput.setAttribute('placeholder', `最低价格 (${data.min_price})`);
+
+                maxPriceInput.setAttribute('min', data.min_price);
+                maxPriceInput.setAttribute('max', data.max_price);
+                maxPriceInput.setAttribute('placeholder', `最高价格 (${data.max_price})`);
+
+                // 更新提示信息
+                hintElement.innerHTML = `<i class="fas fa-info-circle"></i> ${data.message}`;
+                hintElement.className = data.count > 0 ? 'text-success mt-1' : 'text-warning mt-1';
+
+                // 验证当前输入值是否在范围内
+                validatePriceInputs();
+            } else {
+                hintElement.innerHTML = `<i class="fas fa-exclamation-triangle"></i> ${data.message}`;
+                hintElement.className = 'text-danger mt-1';
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching price range:', error);
+            hintElement.innerHTML = '<i class="fas fa-exclamation-triangle"></i> 网络错误，请稍后重试';
+            hintElement.className = 'text-danger mt-1';
+        });
+}
+
+// 验证价格输入
+function validatePriceInputs() {
+    const minPriceInput = document.getElementById('min_price');
+    const maxPriceInput = document.getElementById('max_price');
+
+    const minValue = parseInt(minPriceInput.value);
+    const maxValue = parseInt(maxPriceInput.value);
+
+    // 检查最小价格
+    if (minValue && (minValue < currentPriceRange.min || minValue > currentPriceRange.max)) {
+        minPriceInput.style.borderColor = '#dc3545';
+        minPriceInput.title = `价格应在 ${currentPriceRange.min}-${currentPriceRange.max} 范围内`;
+    } else {
+        minPriceInput.style.borderColor = '';
+        minPriceInput.title = '';
+    }
+
+    // 检查最高价格
+    if (maxValue && (maxValue < currentPriceRange.min || maxValue > currentPriceRange.max)) {
+        maxPriceInput.style.borderColor = '#dc3545';
+        maxPriceInput.title = `价格应在 ${currentPriceRange.min}-${currentPriceRange.max} 范围内`;
+    } else {
+        maxPriceInput.style.borderColor = '';
+        maxPriceInput.title = '';
+    }
+
+    // 检查逻辑关系
+    if (minValue && maxValue && minValue > maxValue) {
+        maxPriceInput.style.borderColor = '#dc3545';
+        maxPriceInput.title = '最高价格不能小于最低价格';
+    }
+}
+
+// 为价格输入框添加验证
+document.addEventListener('DOMContentLoaded', function() {
+    const minPriceInput = document.getElementById('min_price');
+    const maxPriceInput = document.getElementById('max_price');
+
+    [minPriceInput, maxPriceInput].forEach(input => {
+        input.addEventListener('input', validatePriceInputs);
+        input.addEventListener('blur', validatePriceInputs);
+    });
+});
+</script>
+{% endblock %}

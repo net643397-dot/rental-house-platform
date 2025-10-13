@@ -1,0 +1,76 @@
+/* Font Awesome 图标备用CSS - 使用Unicode字符 */
+
+/* 当Font Awesome无法加载时的备用图标 */
+.fa, .fas, .far, .fab {
+    font-family: Arial, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    display: inline-block;
+    text-decoration: inherit;
+}
+
+/* 常用图标映射 */
+.fa-home::before, .fas.fa-home::before { content: "🏠"; }
+.fa-map-marker-alt::before, .fas.fa-map-marker-alt::before { content: "📍"; }
+.fa-chart-line::before, .fas.fa-chart-line::before { content: "📈"; }
+.fa-door-open::before, .fas.fa-door-open::before { content: "🚪"; }
+.fa-expand-arrows-alt::before, .fas.fa-expand-arrows-alt::before { content: "↔️"; }
+.fa-compass::before, .fas.fa-compass::before { content: "🧭"; }
+.fa-city::before, .fas.fa-city::before { content: "🏙️"; }
+.fa-map::before, .fas.fa-map::before { content: "🗺️"; }
+.fa-location-dot::before, .fas.fa-location-dot::before { content: "📍"; }
+.fa-eye::before, .fas.fa-eye::before { content: "👁️"; }
+.fa-calendar::before, .fas.fa-calendar::before { content: "📅"; }
+.fa-hashtag::before, .fas.fa-hashtag::before { content: "#"; }
+.fa-star::before, .fas.fa-star::before { content: "⭐"; }
+.fa-check::before, .fas.fa-check::before { content: "✓"; }
+.fa-route::before, .fas.fa-route::before { content: "🛤️"; }
+.fa-subway::before, .fas.fa-subway::before { content: "🚇"; }
+.fa-map-marked-alt::before, .fas.fa-map-marked-alt::before { content: "🗺️"; }
+.fa-map-pin::before, .fas.fa-map-pin::before { content: "📍"; }
+.fa-thumbs-up::before, .fas.fa-thumbs-up::before { content: "👍"; }
+.fa-external-link-alt::before, .fas.fa-external-link-alt::before { content: "🔗"; }
+.fa-phone::before, .fas.fa-phone::before { content: "📞"; }
+.fa-heart::before, .fas.fa-heart::before { content: "❤️"; }
+.fa-heart::before, .far.fa-heart::before { content: "🤍"; }
+.fa-share-alt::before, .fas.fa-share-alt::before { content: "📤"; }
+.fa-chart-pie::before, .fas.fa-chart-pie::before { content: "📊"; }
+.fa-spinner::before, .fas.fa-spinner::before { content: "⭕"; }
+.fa-bus::before, .fas.fa-bus::before { content: "🚌"; }
+.fa-car::before, .fas.fa-car::before { content: "🚗"; }
+.fa-user::before, .fas.fa-user::before { content: "👤"; }
+.fa-copy::before, .fas.fa-copy::before { content: "📋"; }
+.fa-paper-plane::before, .fas.fa-paper-plane::before { content: "✈️"; }
+.fa-link::before, .fas.fa-link::before { content: "🔗"; }
+.fa-weixin::before, .fab.fa-weixin::before { content: "💬"; }
+.fa-qq::before, .fab.fa-qq::before { content: "💬"; }
+.fa-envelope::before, .fas.fa-envelope::before { content: "✉️"; }
+.fa-check-circle::before, .fas.fa-check-circle::before { content: "✅"; }
+.fa-times-circle::before, .fas.fa-times-circle::before { content: "❌"; }
+.fa-info-circle::before, .fas.fa-info-circle::before { content: "ℹ️"; }
+.fa-exclamation-triangle::before, .fas.fa-exclamation-triangle::before { content: "⚠️"; }
+.fa-chart-bar::before, .fas.fa-chart-bar::before { content: "📊"; }
+.fa-search::before, .fas.fa-search::before { content: "🔍"; }
+.fa-building::before, .fas.fa-building::before { content: "🏢"; }
+.fa-camera::before, .fas.fa-camera::before { content: "📷"; }
+.fa-expand::before, .fas.fa-expand::before { content: "⛶"; }
+.fa-crown::before, .fas.fa-crown::before { content: "👑"; }
+.fa-history::before, .fas.fa-history::before { content: "🕐"; }
+.fa-user-circle::before, .fas.fa-user-circle::before { content: "👤"; }
+.fa-sign-out-alt::before, .fas.fa-sign-out-alt::before { content: "🚪"; }
+.fa-sign-in-alt::before, .fas.fa-sign-in-alt::before { content: "🚪"; }
+.fa-user-plus::before, .fas.fa-user-plus::before { content: "➕👤"; }
+
+/* 动画效果 */
+.fa-spin {
+    animation: fa-spin 1s infinite linear;
+}
+
+@keyframes fa-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* 大小调整 */
+.fa-2x { font-size: 2em; }
+.fa-3x { font-size: 3em; }

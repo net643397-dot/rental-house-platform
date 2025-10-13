@@ -1,0 +1,229 @@
+{% extends "base.html" %}
+
+{% block title %}地图找房 - 房屋租赁平台{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/map_search.css') }}?v=2.0">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/map_search_dark.css') }}?v=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="map-search-page">
+    <!-- 页面标题 -->
+    <div class="page-header">
+        <div class="container">
+            <h1><i class="fas fa-map"></i> 地图找房</h1>
+            <p>在地图上直观查找理想房源</p>
+        </div>
+    </div>
+
+    <div class="map-container">
+        <!-- 地图控制面板 -->
+        <div class="map-controls">
+            <div class="search-panel">
+                <div class="search-group">
+                    <input type="text" id="mapSearchInput" class="map-search-input" placeholder="搜索地点、小区、地标...">
+                    <button id="mapSearchBtn" class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+
+                <div class="filter-group">
+                    <!-- 距离范围筛选（首选必选项） -->
+                    <select id="mapDistanceRange" class="filter-select primary-filter" required>
+                        <option value="">请先选择距离范围</option>
+                        <option value="1">1公里以内</option>
+                        <option value="2">2公里以内</option>
+                        <option value="3">3公里以内</option>
+                        <option value="5" selected>5公里以内</option>
+                        <option value="10">10公里以内</option>
+                        <option value="20">20公里以内</option>
+                    </select>
+
+                    <select id="mapRentType" class="filter-select secondary-filter" disabled>
+                        <option value="">租赁类型</option>
+                        <option value="整租">整租</option>
+                        <option value="合租主卧">合租主卧</option>
+                        <option value="合租次卧">合租次卧</option>
+                    </select>
+
+                    <select id="mapPriceRange" class="filter-select secondary-filter" disabled>
+                        <option value="">价格范围</option>
+                        <option value="0-2000">0-2000元</option>
+                        <option value="2000-4000">2000-4000元</option>
+                        <option value="4000-6000">4000-6000元</option>
+                        <option value="6000-8000">6000-8000元</option>
+                        <option value="8000-99999">8000元以上</option>
+                    </select>
+
+                    <select id="mapRoomType" class="filter-select secondary-filter" disabled>
+                        <option value="">房间数</option>
+                        <option value="1室">1室</option>
+                        <option value="2室">2室</option>
+                        <option value="3室">3室</option>
+                        <option value="4室">4室</option>
+                    </select>
+                </div>
+
+                <div class="map-actions">
+                    <button id="showMyLocation" class="action-btn primary">
+                        <i class="fas fa-crosshairs"></i> 我的位置
+                    </button>
+                    <button id="clearMarkers" class="action-btn secondary">
+                        <i class="fas fa-eraser"></i> 清除标记
+                    </button>
+                    <button id="toggleHeatmap" class="action-btn secondary">
+                        <i class="fas fa-fire"></i> 热力图
+                    </button>
+                </div>
+            </div>
+
+            <!-- 地图信息面板 -->
+            <div class="map-info-panel">
+                <div class="current-location">
+                    <i class="fas fa-location-dot"></i>
+                    <span id="currentLocationText">点击地图或搜索位置开始找房</span>
+                </div>
+                <div class="house-count">
+                    <i class="fas fa-home"></i>
+                    <span id="houseCountText">共 <span id="totalHouses">0</span> 套房源</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 地图容器 -->
+        <div class="map-wrapper">
+            <div id="baiduMap" class="baidu-map"></div>
+
+            <!-- 地图加载状态 -->
+            <div id="mapLoading" class="map-loading">
+                <div class="loading-spinner">
+                    <i class="fas fa-spinner fa-spin"></i>
+                </div>
+                <p>地图加载中...</p>
+            </div>
+
+            <!-- 地图工具栏 -->
+            <div class="map-toolbar">
+                <button id="fullscreenBtn" class="toolbar-btn" title="全屏显示">
+                    <i class="fas fa-expand"></i>
+                </button>
+                <button id="centerMapBtn" class="toolbar-btn" title="回到北京中心">
+                    <i class="fas fa-home"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- 房源列表侧边栏 -->
+        <div class="house-sidebar">
+            <div class="sidebar-header">
+                <h3><i class="fas fa-list"></i> 附近房源</h3>
+                <div class="sidebar-controls">
+                    <select id="sortOrder" class="sort-select">
+                        <option value="distance">按距离排序</option>
+                        <option value="price_asc">价格从低到高</option>
+                        <option value="price_desc">价格从高到低</option>
+                        <option value="area_desc">面积从大到小</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="house-list" id="mapHouseList">
+                <div class="no-houses">
+                    <div class="no-houses-icon">
+                        <i class="fas fa-search-location" aria-hidden="true"></i>
+                    </div>
+                    <h4>开始找房</h4>
+                    <p>在地图上点击任意位置<br>或搜索地点查看附近房源</p>
+                    <div class="quick-actions">
+                        <button id="beijingCenter" class="quick-btn">
+                            <i class="fas fa-building" aria-hidden="true"></i> 北京市中心
+                        </button>
+                        <button id="zhongguancun" class="quick-btn">
+                            <i class="fas fa-university" aria-hidden="true"></i> 中关村
+                        </button>
+                        <button id="wangjing" class="quick-btn">
+                            <i class="fas fa-city" aria-hidden="true"></i> 望京
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 房源详情弹窗 -->
+<div id="houseModal" class="house-modal" style="display: none;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="modalTitle">房源详情</h3>
+            <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body" id="modalBody">
+            <!-- 动态加载房源详情 -->
+        </div>
+        <div class="modal-footer">
+            <button id="viewDetails" class="btn btn-primary">查看详情</button>
+            <button id="addToFavorite" class="btn btn-secondary">加入收藏</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<!-- 百度地图API -->
+<script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=cg586UyVNcwZE5pr6ixek5httvNE4P9y"></script>
+<script type="text/javascript">
+window.BMap_loadScriptTime = (new Date()).getTime();
+</script>
+<script type="text/javascript" src="https://api.map.baidu.com/library/TextIconOverlay/1.2/src/TextIconOverlay_min.js"></script>
+<script type="text/javascript" src="https://api.map.baidu.com/library/MarkerClusterer/1.2/src/MarkerClusterer_min.js"></script>
+<script type="text/javascript" src="https://api.map.baidu.com/library/Heatmap/2.0/src/Heatmap_min.js"></script>
+<script src="{{ url_for('static', filename='js/map_search.js') }}?v=1.2"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // 初始化地图搜索组件
+    if (typeof BMap !== 'undefined') {
+        const mapSearch = new MapSearchManager();
+        mapSearch.init();
+
+        // 北京市中心坐标
+        const beijingCenter = new BMap.Point(116.404, 39.915);
+        mapSearch.setCenter(beijingCenter, '北京市中心');
+    } else {
+        console.error('百度地图API加载失败');
+        document.getElementById('mapLoading').innerHTML = `
+            <div class="error-message">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h3>地图加载失败</h3>
+                <p>请检查网络连接或稍后重试</p>
+                <button onclick="location.reload()" class="btn btn-primary">重新加载</button>
+            </div>
+        `;
+    }
+
+    // 快速定位按钮事件
+    document.getElementById('beijingCenter').addEventListener('click', function() {
+        const mapSearch = window.mapSearchInstance;
+        if (mapSearch) {
+            mapSearch.searchLocation('北京市中心');
+        }
+    });
+
+    document.getElementById('zhongguancun').addEventListener('click', function() {
+        const mapSearch = window.mapSearchInstance;
+        if (mapSearch) {
+            mapSearch.searchLocation('中关村');
+        }
+    });
+
+    document.getElementById('wangjing').addEventListener('click', function() {
+        const mapSearch = window.mapSearchInstance;
+        if (mapSearch) {
+            mapSearch.searchLocation('望京');
+        }
+    });
+});
+</script>
+{% endblock %}

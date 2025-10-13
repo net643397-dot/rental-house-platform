@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block title %}用户注册 - 租房网{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow">
+                <div class="card-header text-center bg-success text-white">
+                    <h4><i class="fas fa-user-plus"></i> 用户注册</h4>
+                </div>
+                <div class="card-body">
+                    <!-- Flash Messages -->
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show" role="alert">
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+
+                    <form method="POST">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">
+                                <i class="fas fa-user"></i> 用户名
+                            </label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="username"
+                                   name="username"
+                                   required
+                                   minlength="3"
+                                   maxlength="20"
+                                   placeholder="请输入用户名（3-20个字符）">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">
+                                <i class="fas fa-envelope"></i> 邮箱
+                            </label>
+                            <input type="email"
+                                   class="form-control"
+                                   id="email"
+                                   name="email"
+                                   required
+                                   placeholder="请输入邮箱地址">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password" class="form-label">
+                                <i class="fas fa-lock"></i> 密码
+                            </label>
+                            <input type="password"
+                                   class="form-control"
+                                   id="password"
+                                   name="password"
+                                   required
+                                   minlength="6"
+                                   placeholder="请输入密码（至少6位）">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="confirm_password" class="form-label">
+                                <i class="fas fa-lock"></i> 确认密码
+                            </label>
+                            <input type="password"
+                                   class="form-control"
+                                   id="confirm_password"
+                                   name="confirm_password"
+                                   required
+                                   minlength="6"
+                                   placeholder="请再次输入密码">
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-user-plus"></i> 注册
+                            </button>
+                        </div>
+                    </form>
+
+                    <hr>
+
+                    <div class="text-center">
+                        <p class="mb-0">已有账号？</p>
+                        <a href="{{ url_for('login') }}" class="btn btn-outline-primary btn-sm">
+                            <i class="fas fa-sign-in-alt"></i> 立即登录
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// 密码确认验证
+document.getElementById('confirm_password').addEventListener('input', function() {
+    const password = document.getElementById('password').value;
+    const confirmPassword = this.value;
+
+    if (password !== confirmPassword) {
+        this.setCustomValidity('两次输入的密码不一致');
+    } else {
+        this.setCustomValidity('');
+    }
+});
+</script>
+{% endblock %}

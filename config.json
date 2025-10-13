@@ -1,0 +1,32 @@
+{
+  "baidu_api": {
+    "ak_key": "YOUR_BAIDU_MAP_API_KEY",
+    "base_url": "https://api.map.baidu.com/geocoding/v3/",
+    "coordtype": "gcj02ll",
+    "rate_limit": {
+      "requests_per_second": 5,
+      "daily_quota": 10000
+    }
+  },
+  "database": {
+    "host": "127.0.0.1",
+    "port": 3306,
+    "user": "root",
+    "password": "",
+    "database": "house",
+    "charset": "utf8mb4"
+  },
+  "geocoding": {
+    "batch_size": 50,
+    "delay_seconds": 0.2,
+    "max_retries": 3,
+    "timeout_seconds": 10,
+    "test_mode": true,
+    "test_records": 100
+  },
+  "logging": {
+    "level": "INFO",
+    "file": "geocoding.log",
+    "format": "%(asctime)s - %(levelname)s - %(message)s"
+  }
+}
