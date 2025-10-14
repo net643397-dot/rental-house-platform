@@ -699,13 +699,37 @@ cd dist/map_house
 - **坐标缓存**: 地理编码结果缓存，避免重复计算
 - **静态资源**: CSS/JS压缩与版本控制，优化加载速度
 
+## 👨‍💻 作者与贡献者
+
+### 主要开发者
+- **[net643397-dot](https://github.com/net643397-dot)** - 项目创建者，核心功能开发
+  - 🏗️ **主要贡献**: 后端架构设计、地图找房功能、用户系统、性能优化
+  - 💻 **技术栈**: Flask, MySQL, JavaScript, 百度地图API
+  - 📅 **开发时间**: 2025年9月20日 - 10月12日 (4个工作日)
+
+### 贡献统计
+- **代码行数**: 11,743+ 行
+- **功能模块**: 15个主要模块
+- **API接口**: 20+ 个RESTful接口
+- **数据库**: 113,318条真实房源数据
+
 ## 🤝 贡献指南
 
-1. Fork 本仓库
-2. 创建特性分支 (`git checkout -b feature/AmazingFeature`)
-3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
-4. 推送到分支 (`git push origin feature/AmazingFeature`)
-5. 打开 Pull Request
+欢迎对本项目做出贡献！请遵循以下步骤：
+
+1. **Fork** 本仓库到你的GitHub账户
+2. **创建** 特性分支 (`git checkout -b feature/AmazingFeature`)
+3. **提交** 更改 (`git commit -m 'Add some AmazingFeature'`)
+4. **推送** 到分支 (`git push origin feature/AmazingFeature`)
+5. **打开** Pull Request
+
+### 贡献类型
+- 🐛 **Bug修复**: 修复已知问题
+- ✨ **新功能**: 添加新的功能特性
+- 📚 **文档**: 改进文档和说明
+- 🎨 **UI/UX**: 界面和用户体验优化
+- ⚡ **性能**: 性能优化和改进
+- 🔧 **工具**: 开发工具和脚本
 
 ## 📝 许可证
 
