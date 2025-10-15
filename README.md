@@ -124,7 +124,8 @@ rental-house-platform/
 
 ### 1. 房源列表页 (首页)
 **界面展示**
-![房源列表页](images/screenshots/index-screenshot.png)
+![房源列表页](![Uploading image.png…]()
+)
 
 **核心功能**
 - **分页展示**: 支持按页浏览房源信息，每页显示固定数量房源
