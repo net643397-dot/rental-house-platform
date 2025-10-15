@@ -1,10 +1,21 @@
-# 房源信息平台 - House Rental Platform
+# 🏠 房源信息平台 - House Rental Platform
 
 [![Flask](https://img.shields.io/badge/Flask-2.0+-green.svg)](https://flask.palletsprojects.com/)
 [![MySQL](https://img.shields.io/badge/MySQL-8.0+-blue.svg)](https://www.mysql.com/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/net643397-dot/rental-house-platform?style=social)](https://github.com/net643397-dot/rental-house-platform/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/net643397-dot/rental-house-platform?style=social)](https://github.com/net643397-dot/rental-house-platform/network)
 
-一个基于Flask + MySQL的二手房租赁平台，支持地图找房、智能推荐、用户系统等完整功能。**项目亮点**：坐标转换、地图聚合、附近房源算法、响应式设计。
+## 📋 项目概述
+
+一个基于Flask + MySQL的现代化**房源信息平台**，支持地图找房、智能推荐、用户系统等完整功能。
+
+### 🌟 核心亮点
+- 🗺️ **地图找房功能** - 基于百度地图的实时房源搜索与可视化
+- 🤖 **智能推荐算法** - 基于区域+价格+房型的相似房源推荐
+- 📱 **响应式设计** - 完美适配桌面端和移动端
+- 🔄 **坐标转换技术** - BD-09与GCJ-02坐标系精确转换
+- 📊 **大数据处理** - 113,318条真实房源数据，高性能查询
 
 ## 🌟 项目特性
 
@@ -167,7 +178,8 @@ def index():
 
 ### 2. 房源详情页
 **界面展示**
-![房源详情页](images/screenshots/detail-screenshot.png)
+![房源详情页1](images/screenshots/detail-screenshot-1.png)
+![房源详情页2](images/screenshots/detail-screenshot-2.png)
 
 **核心功能**
 - **房源信息展示**:
@@ -208,9 +220,10 @@ def similar_houses(house_id):
     } for h in similar])
 ```
 
-### 3. 地图找房页
+### 3. 地图找房��
 **界面展示**
-![地图找房页](images/screenshots/map-screenshot.png)
+![地图找房页1](images/screenshots/map-screenshot-1.png)
+![地图找房页2](images/screenshots/map-screenshot-2.png)
 
 **核心功能**
 - **多种定位方式**:
@@ -281,6 +294,7 @@ def nearby_houses():
 ### 4. 用户注册/登录页
 **界面展示**
 ![用户登录页](images/screenshots/login-screenshot.png)
+![用户注册页](images/screenshots/register-screenshot.png)
 
 **核心功能**
 - **用户注册**:
