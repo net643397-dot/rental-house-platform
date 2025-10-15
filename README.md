@@ -1,4 +1,4 @@
-# 房源信息平台 - House Rental Platform
+# 二手房源租赁web - House Rental Platform
 
 [![Flask](https://img.shields.io/badge/Flask-2.0+-green.svg)](https://flask.palletsprojects.com/)
 [![MySQL](https://img.shields.io/badge/MySQL-8.0+-blue.svg)](https://www.mysql.com/)
